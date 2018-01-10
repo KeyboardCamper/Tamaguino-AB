@@ -1,5 +1,5 @@
 # Tamaguino-AB
-A port of Tamaguino for the Arduboy Games System
+A port of Alojz Jakob’s Tamaguino for the Arduboy Games System
 
 ![Screenshot](ArduboyRecording.gif)
 # Tamaguino
