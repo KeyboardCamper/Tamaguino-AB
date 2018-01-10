@@ -162,7 +162,14 @@ void loop() {
     if(!arduboy.nextFrame()) {
     return;
   }
- // arduboy.clear();
+
+//Turn the Screen ON/OFF
+  if (arduboy.pressed(LEFT_BUTTON | B_BUTTON | DOWN_BUTTON)){
+    arduboy.displayOff();}
+  if (arduboy.pressed(RIGHT_BUTTON | B_BUTTON | DOWN_BUTTON)){
+    arduboy.displayOn();
+    arduboy.display();
+    }  
   
   
   if(!dead){
