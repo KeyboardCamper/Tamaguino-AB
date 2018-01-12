@@ -2,12 +2,24 @@
 A port of Alojz Jakob’s Tamaguino for the Arduboy Games System
 
 ![Screenshot](ArduboyRecording.gif)
+# Controls:
+UP = Button 1- MENU
 
-To Do or Add or Changes made:
+A = Button 2 - SELECT
+
+B = Button 3 - BACK
+
+LEFT  + B = Display Off
+
+RIGHT + B = Display On
+
+
+# To Do or Add or Changes made:
 
 Move to Arduboy2 Library --Done
 
 Remove Wire + SPI Stuff  --Done
+
 Convert & relocate Images  --Done
 
 Edit Speaker pin  --Done
