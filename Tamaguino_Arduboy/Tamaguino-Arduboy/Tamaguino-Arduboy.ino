@@ -13,6 +13,7 @@
 #include <Arduboy2.h>
 #include "IMAGES.h"
 
+
 Arduboy2 arduboy;
 
 const int sound = 5; 
@@ -120,7 +121,6 @@ int poops [3] = {
   0,0,0,
 };
 
-//#define ACTIVATED LOW
 
 void setup() {
 
@@ -128,7 +128,7 @@ void setup() {
 
   arduboy.initRandomSeed();
   arduboy.begin();
-  arduboy.setFrameRate(25);
+  arduboy.setFrameRate(20);
   arduboy.clear();
 
   // splash
@@ -151,7 +151,6 @@ void setup() {
   delay(2200);
   // end splash
 
-  
   arduboy.clear();
   
 }
@@ -159,14 +158,16 @@ void setup() {
 
 
 void loop() {
-    if(!arduboy.nextFrame()) {
+    if(!arduboy.nextFrame()) 
     return;
-  }
+    arduboy.pollButtons();
+  
 
 //Turn the Screen ON/OFF
-  if (arduboy.pressed(LEFT_BUTTON | B_BUTTON | DOWN_BUTTON)){
-    arduboy.displayOff();}
-  if (arduboy.pressed(RIGHT_BUTTON | B_BUTTON | DOWN_BUTTON)){
+  if (arduboy.pressed(LEFT_BUTTON | B_BUTTON)){
+    arduboy.displayOff();
+    }
+  if (arduboy.pressed(RIGHT_BUTTON | B_BUTTON)){
     arduboy.displayOn();
     arduboy.display();
     }  
@@ -227,7 +228,7 @@ void loop() {
     }
     if(hunger>20 && countPoops()==0 && happiness>20 && health>20){
       notification=false;  
-      digitalWrite(13,LOW);
+      digitalWrite(RED_LED,HIGH);
     }
 
     if(hunger<=0 || health<=0 || happiness<=0){
@@ -249,7 +250,7 @@ void loop() {
     /* ------- BUTTON PRESS ACTIONS ------- */
     
     /* ------- BUTTON 1 - MENU ------- */
-    if(arduboy.pressed(UP_BUTTON)){
+    if(arduboy.justPressed(UP_BUTTON)){
       
       // JUMP IN GAME
       if(game){
@@ -301,7 +302,7 @@ void loop() {
       
     }
     /* ------- BUTTON 2 - SELECT ------- */
-    if(arduboy.pressed(A_BUTTON)){
+    if(arduboy.justPressed(A_BUTTON)){
       
       if(game){
         if(!gameOver){
@@ -352,7 +353,7 @@ void loop() {
       
     }
     /* ------- BUTTON 3 - BACK ------- */
-    if(arduboy.pressed(B_BUTTON)){
+    if(arduboy.justPressed(B_BUTTON)){
       if(soundEnabled){
         tone(sound,1000,80);
       }
@@ -946,16 +947,17 @@ void loop() {
       if(notificationBlink!=1){
         arduboy.drawRect(117,28,11,11,WHITE);
         arduboy.setTextColor(WHITE);
-        digitalWrite(13,LOW);
+        digitalWrite(RED_LED,HIGH);
       }else{
         arduboy.fillRect(117,28,11,11,WHITE);
         arduboy.setTextColor(BLACK);
-        digitalWrite(13,HIGH);
+        digitalWrite(RED_LED,LOW);
+        //tone(sound,500,200);
       }
       arduboy.setCursor(120,30);
       arduboy.println(F("!"));
       if(dead){
-         digitalWrite(13,LOW);
+         digitalWrite(RED_LED,HIGH);
       }
     }
 
@@ -995,7 +997,7 @@ void loop() {
     arduboy.println(F("Pet died...\n\nPress button 1\nto restart"));
     arduboy.display();
 
-    if((arduboy.pressed(UP_BUTTON) || arduboy.pressed(B_BUTTON) || arduboy.pressed(A_BUTTON))){
+    if((arduboy.justPressed(UP_BUTTON) || arduboy.justPressed(B_BUTTON) || arduboy.justPressed(A_BUTTON))){
       if(soundEnabled){
         tone(sound,300,80);
         delay(200);
