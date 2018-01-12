@@ -228,7 +228,7 @@ void loop() {
     }
     if(hunger>20 && countPoops()==0 && happiness>20 && health>20){
       notification=false;  
-      digitalWrite(13,LOW);
+      digitalWrite(RED_LED,HIGH);
     }
 
     if(hunger<=0 || health<=0 || happiness<=0){
@@ -947,16 +947,16 @@ void loop() {
       if(notificationBlink!=1){
         arduboy.drawRect(117,28,11,11,WHITE);
         arduboy.setTextColor(WHITE);
-        digitalWrite(13,LOW);
+        digitalWrite(RED_LED,HIGH);
       }else{
         arduboy.fillRect(117,28,11,11,WHITE);
         arduboy.setTextColor(BLACK);
-        digitalWrite(13,HIGH);
+        digitalWrite(RED_LED,LOW);
       }
       arduboy.setCursor(120,30);
       arduboy.println(F("!"));
       if(dead){
-         digitalWrite(13,LOW);
+         digitalWrite(RED_LED,HIGH);
       }
     }
 
