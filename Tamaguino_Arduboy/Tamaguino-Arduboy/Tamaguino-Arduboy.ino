@@ -12,12 +12,10 @@
 
 #include <Arduboy2.h>
 #include "IMAGES.h"
-
+#include <ArduboyTones.h>
 
 Arduboy2 arduboy;
-
-const int sound = 5; 
-
+ArduboyTones sound(arduboy.audio.enabled);
 
 #define WALKSIZE 6
 //const unsigned char* const dinoWalk[WALKSIZE] PROGMEM = {
@@ -124,7 +122,7 @@ int poops [3] = {
 
 void setup() {
 
-  pinMode(sound, OUTPUT);
+  //pinMode(sound, OUTPUT);
 
   arduboy.initRandomSeed();
   arduboy.begin();
@@ -140,13 +138,13 @@ void setup() {
   
   //splash tone
 
-  tone(sound,500,200);
+  sound.tone(500,200);
   delay(200);
-  tone(sound,1000,200);
+  sound.tone(1000,200);
   delay(400);
-  tone(sound,700,200);
+  sound.tone(700,200);
   delay(200);
-  tone(sound,1100,200);
+  sound.tone(1100,200);
 
   delay(2200);
   // end splash
@@ -211,14 +209,14 @@ void loop() {
       poopometer=countPoops();
       poops[round(poopometer)]=random(20,arduboy.width()+32);
       if(soundEnabled){
-        tone(sound,200,50);
+        sound.tone(200,50);
       }
       poopometer=0;
     }
 
     if((hunger>19.99975 && hunger<20.00025) || (happiness>19.9998 && happiness<20.0002) || (health>19.9999 && health<20.0001) && soundEnabled){
       if(soundEnabled){
-        tone(sound,200,50);
+        sound.tone(200,50);
       }
     }
   
@@ -234,11 +232,11 @@ void loop() {
     if(hunger<=0 || health<=0 || happiness<=0){
       dead=true;
       if(soundEnabled){
-        tone(sound,500,500);
+        sound.tone(500,500);
         delay(550);
-        tone(sound,400,500);
+        sound.tone(400,500);
         delay(550);
-        tone(sound,300,600);
+        sound.tone(300,600);
       }
     }
 
@@ -257,7 +255,7 @@ void loop() {
 
         if(!jumping && !paused){
           if(soundEnabled){
-            tone(sound,200,50);
+            sound.tone(200,50);
           }
           jumping=true;
         }
@@ -266,7 +264,7 @@ void loop() {
         // MENU
 
         if(soundEnabled){
-          tone(sound,300,80);
+          sound.tone(300,80);
         }
       
         if(!menuOpened){
@@ -308,7 +306,7 @@ void loop() {
         if(!gameOver){
           paused=!paused;
           if(soundEnabled){
-            tone(sound,600,80);
+            sound.tone(600,80);
           }
           delay(60);
         }
@@ -316,7 +314,7 @@ void loop() {
       }else{
 
         if(soundEnabled){
-          tone(sound,600,80);
+          sound.tone(600,80);
         }
         
         if(menuOpened){
@@ -355,7 +353,7 @@ void loop() {
     /* ------- BUTTON 3 - BACK ------- */
     if(arduboy.justPressed(B_BUTTON)){
       if(soundEnabled){
-        tone(sound,1000,80);
+        sound.tone(1000,80);
       }
       
       if(game || gameOver){
@@ -461,7 +459,7 @@ void loop() {
             jumpUp=true;
             jumping=false;
             if(soundEnabled){
-              tone(sound,100,50);
+              sound.tone(100,50);
             }
             score+=1;
           }
@@ -498,11 +496,11 @@ void loop() {
           jumping=true;
           jumpPos=-2;
           if(soundEnabled){
-            tone(sound,500,40);
+            sound.tone(500,40);
             delay(50);
-            tone(sound,350,40);
+            sound.tone(350,40);
             delay(50);
-            tone(sound,200,60);
+            sound.tone(200,60);
           }
 
           if(score>hiScore){
@@ -590,10 +588,10 @@ void loop() {
       }
 
       if(paused && round(cloud1XPos)%2==0){
-        arduboy.fillRect(24,11,80,15,BLACK);
-        arduboy.fillRect(25,12,78,13,WHITE);
-        arduboy.setCursor(47,15);
-        arduboy.setTextColor(BLACK);
+        //arduboy.fillRect(24,11,80,15,BLACK);
+        //arduboy.fillRect(25,12,78,13,WHITE);
+        arduboy.setCursor(47,20);
+        arduboy.setTextColor(WHITE);
         arduboy.println(F("PAUSED"));
       }
       
@@ -801,7 +799,7 @@ void loop() {
       }else{
         if(action==101 || action==102 || action==103){
           if(soundEnabled){
-            tone(sound,500,200);
+            sound.tone(500,200);
             delay(250);
           }
         }
@@ -866,7 +864,7 @@ void loop() {
             delay(150);
             for(int i=0;i<5;i++){
               if(soundEnabled){
-                tone(sound,200*i,100);
+                sound.tone(200*i,100);
               }
               arduboy.setCursor(100+3*i,32);
               arduboy.print(F("!"));
@@ -952,7 +950,9 @@ void loop() {
         arduboy.fillRect(117,28,11,11,WHITE);
         arduboy.setTextColor(BLACK);
         digitalWrite(RED_LED,LOW);
-        //tone(sound,500,200);
+        if(soundEnabled){
+        sound.tone(500,200);
+        }
       }
       arduboy.setCursor(120,30);
       arduboy.println(F("!"));
@@ -970,8 +970,8 @@ void loop() {
       arduboy.drawRect(16,12,96,41,WHITE);
       arduboy.fillRect(16,12,96,13,WHITE);
       arduboy.setCursor(36,15);
-      arduboy.setTextColor(BLACK);
-      arduboy.println(F("GAME OVER"));
+      arduboy.setTextColor(WHITE);
+      arduboy.println(F(" GAME OVER "));
       arduboy.setTextColor(WHITE);
       arduboy.setCursor(21,29);
       if(newHiScore){
@@ -999,10 +999,10 @@ void loop() {
 
     if((arduboy.justPressed(UP_BUTTON) || arduboy.justPressed(B_BUTTON) || arduboy.justPressed(A_BUTTON))){
       if(soundEnabled){
-        tone(sound,300,80);
+        sound.tone(300,80);
         delay(200);
       }
-      noTone(sound);
+      sound.noTone();
       asm volatile ("  jmp 0");
     }
   }
