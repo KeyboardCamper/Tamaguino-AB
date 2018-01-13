@@ -14,7 +14,7 @@ LEFT  + B = Display Off
 RIGHT + B = Display On
 
 
-# To Do or Add or Changes made:
+# Changes made:
 
 Move to Arduboy2 Library --Done
 
@@ -26,17 +26,25 @@ Edit Speaker pin  --Done
 
 Framerate too fast  --Done
 
+Migrate From Arduino Tone() to ArduboyTones --Done
+
 Better handling for audio - Maybe Arduboy Beep
+
+LED stuff -Done
+
+Print stuff (BLACK) -(WHITE) --Done
 
 Improve Button Handling  --Done
 
 OLED Sleep  --Done
+
+# To Do:
 
 More intereaction
 
 Improved Power saving
 
 # Tamaguino
-Tamagotchi clone for Arduino
+Tamagotchi clone for Arduino the original project
 
 https://alojzjakob.github.io/Tamaguino/
